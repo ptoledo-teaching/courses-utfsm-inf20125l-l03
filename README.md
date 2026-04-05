@@ -4,7 +4,7 @@
 
 Esta sesión introduce el uso básico del editor `vim` junto con el flujo mínimo de desarrollo en C: edición, compilación y ejecución desde la terminal. A diferencia de sesiones anteriores centradas en la terminal, aquí se incorpora el primer ciclo completo de desarrollo: escribir código, compilarlo y ejecutarlo.
 
-### Prerrequisitos
+### Pre-requisitos
 
 - Tener sesión iniciada en la VM Lubuntu del equipo asignado
 - Tener disponible el compilador `gcc`
