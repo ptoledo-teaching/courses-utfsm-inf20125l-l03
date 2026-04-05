@@ -1,23 +1,23 @@
 # L03: Edición con vim y compilación en C
 
-Esta sesión introduce el uso básico del editor `vim` junto con el flujo mínimo de desarrollo en C: edición, compilación y ejecución desde la terminal.
+## Introducción
 
-A diferencia de sesiones anteriores centradas en la terminal, aquí se incorpora el primer ciclo completo de desarrollo: escribir código, compilarlo y ejecutarlo.
+Esta sesión introduce el uso básico del editor `vim` junto con el flujo mínimo de desarrollo en C: edición, compilación y ejecución desde la terminal. A diferencia de sesiones anteriores centradas en la terminal, aquí se incorpora el primer ciclo completo de desarrollo: escribir código, compilarlo y ejecutarlo.
 
-## Prerrequisitos
+### Prerrequisitos
 
 - Tener sesión iniciada en la VM Lubuntu del equipo asignado
 - Tener disponible el compilador `gcc`
 - Haber trabajado previamente con comandos básicos de terminal
 
-## Objetivo general
+### Objetivo general
 
 - Editar archivos de texto usando `vim`
 - Comprender operaciones básicas de edición en un editor modal
 - Escribir, compilar y ejecutar un programa simple en C usando el estándar C11
 - Extender el programa para trabajar con tipos de datos, operaciones aritméticas y `sizeof`
 
-## Objetivos específicos
+### Objetivos específicos
 
 - Abrir archivos con `vim`
 - Entrar y salir del modo inserción
@@ -28,88 +28,68 @@ A diferencia de sesiones anteriores centradas en la terminal, aquí se incorpora
 - Ejecutar el binario generado
 - Extender el programa para mostrar operaciones básicas y tamaños de tipos de datos
 
-## Metodología
+### Metodología
 
 A lo largo de esta sesión se trabajará directamente sobre archivos de código fuente en C usando `vim` como editor de texto. A medida que se incorporan comandos básicos del editor, se irá construyendo un pequeño programa en C, primero en su forma más simple y luego extendiéndolo para incorporar variables, operaciones y uso de `sizeof`.
 
 El objetivo no es dominar `vim` en una sola sesión, sino adquirir una base mínima que permita usarlo para editar y corregir programas simples desde la terminal.
 
-## Comandos y edición con `vim`
+### Estructura del repositorio
 
-### 1. Abrir un archivo
+Este repositorio solo contiene una carpeta `code` con los archivos fuente de ejemplo idénticos a los que se proveen como parte del README. No se incluyen archivos de prueba ni otros recursos para esta sesión ya que el foco está en la edición y compilación básica.
 
-Para crear o abrir un archivo desde la terminal:
+Si bien se recomienda un trabajo directo sobre la terminal para preparar estos archivos, también es posible usar los archivos provistos para compilar y ejecutar sin necesidad de escribirlos desde cero, aunque se pierde la oportunidad de practicar los comandos básicos de `vim`.
+
+## Actividad
+
+### 1. Uso básico de `vim`
+
+#### Abrir vim
+
+Para abrir el editor `vim` desde la terminal, simplemente escribir:
 
 ```bash
-vim example001.c
+> vim
 ```
 
-Si el archivo no existe, `vim` lo abrirá como un archivo nuevo. Si ya existe, mostrará su contenido.
-
-### 2. Modos de `vim`
-
-`vim` es un editor modal. Los dos modos más importantes en este laboratorio son:
+`vim` es un editor modal. Los dos modos más importantes son:
 
 - **Modo normal**: permite navegar y ejecutar comandos
 - **Modo inserción**: permite escribir texto
 
-Al abrir `vim`, normalmente se comienza en modo normal.
+Al abrir `vim`, normalmente se comienza en modo normal. En este modo, al escribir no se insertará texto, sino que cada tecla se interpreta como un comando. En esta primera incursión solo cerraremos `vim` sin guardar, así que no es necesario entrar en modo inserción aún. Para salir sin guardar, debemos estar en modo normal (al que podemos acceder con `ESC`) y luego escribir `:q`.
 
-### 3. Entrar en modo inserción
+#### Abrir un archivo
 
-Para comenzar a escribir texto, presionar:
+Para crear o abrir un archivo desde la terminal llamamos a vim seguido del nombre del archivo:
 
-```text
-i
+```bash
+> vim example.c
 ```
 
-Con esto se entra en modo inserción.
+Si el archivo no existe, `vim` lo abrirá como un archivo nuevo. Si ya existe, mostrará su contenido.
 
-### 4. Salir del modo inserción
+Aquí podemos empezar a editar nuestro archivo. Para ello primero debemos entrar en modo inserción, apretando la tecla `i` en modo normal. Luego podremos escribir texto normalmente. Para volver a modo normal, presionamos `ESC`.
 
-Para volver al modo normal:
+Una vez que hemos editado el archivo intentamos salir con `:q`, pero `vim` nos indicará que hay cambios sin guardar. Para salir sin guardar, debemos usar `:q!`.
 
-```text
-ESC
-```
+Al revisar la consola notaremos que aunque hayamos abierto el archivo, no se ha creado ningún archivo nuevo en el sistema de archivos. Esto se debe a que `vim` solo crea el archivo cuando se guarda por primera vez.
 
-### 5. Salir sin guardar
+#### Guardar y salir
 
-Desde modo normal, escribir:
+Abrimos nuevamente el archivo con `vim example.c`, entramos en modo inserción con `i`, escribimos algo de texto y luego queremos salir guardando los cambios. Para eso, estando en modo normal, escribimos `:wq`.
 
-```text
-:q!
-```
+y luego presionar `Enter`. Esto guarda los cambios y cierra el editor. Ahora al revisar el sistema de archivos, veremos que el archivo `example.c` ha sido creado con el contenido que escribimos.
 
-y luego presionar `Enter`.
+#### Guardar sin salir
 
-Esto cierra el editor descartando todos los cambios realizados desde la última vez que se guardó.
+No es necesario salir para guardar los cambios. Si queremos guardar pero seguir editando, estando en modo normal, escribimos `:w`.
 
-### 6. Guardar y salir
+### 2. Comandos básicos de edición en modo normal
 
-Desde modo normal, escribir:
+Una vez dentro del editor y en modo normal, se pueden usar diversos comandos para manipular el texto. A continuación se muestran algunos comandos básicos.
 
-```text
-:wq
-```
-
-y luego presionar `Enter`.
-
-Esto guarda los cambios y cierra el editor.
-
-### 7. Guardar sin salir
-
-Desde modo normal:
-
-```text
-:w
-```
-
-## Edición básica en `vim`
-
-Una vez dentro del editor y en modo normal, se pueden usar los siguientes comandos.
-
-### 8. Copiar una línea
+#### Copiar una línea
 
 ```text
 yy
@@ -117,7 +97,7 @@ yy
 
 Copia la línea actual.
 
-### 9. Pegar
+#### Pegar
 
 ```text
 p
@@ -125,7 +105,7 @@ p
 
 Pega debajo de la línea actual el contenido copiado.
 
-### 10. Eliminar una línea
+#### Eliminar una línea
 
 ```text
 dd
@@ -133,7 +113,7 @@ dd
 
 Elimina la línea actual.
 
-### 11. Deshacer
+#### Deshacer
 
 ```text
 u
@@ -141,7 +121,7 @@ u
 
 Deshace el último cambio realizado.
 
-### 12. Rehacer
+#### Rehacer
 
 ```text
 Ctrl+r
@@ -149,31 +129,12 @@ Ctrl+r
 
 Rehace un cambio deshecho.
 
-## Actividad inicial con `vim`
-
-Crear un archivo de prueba:
-
-```bash
-vim prueba.txt
-```
-
-Dentro de ese archivo:
-
-1. Escribir tres líneas distintas
-2. Copiar una de ellas con `yy`
-3. Pegarla con `p`
-4. Eliminar una línea con `dd`
-5. Deshacer con `u`
-6. Salir sin guardar con `:q!`
-
-Luego volver a abrir el archivo, repetir el ejercicio y esta vez salir guardando con `:wq`.
-
-## Primer programa en C: Hello World
+### 3. Primer programa en C: Hello World
 
 Crear el archivo `example001.c` con `vim`:
 
 ```bash
-vim example001.c
+> vim example001.c
 ```
 
 Ingresar el siguiente contenido:
@@ -181,7 +142,8 @@ Ingresar el siguiente contenido:
 ```c
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     printf("Hello, World!\n");
     return 0;
 }
@@ -189,15 +151,13 @@ int main(void) {
 
 Guardar y salir.
 
-## Compilación con `gcc`
-
 Para compilar el programa desde la terminal:
 
 ```bash
-gcc -Wall -std=c11 -o example001 example001.c
+> gcc -Wall -std=c11 -o example001 example001.c
 ```
 
-### Explicación del comando
+De esta compilación podemos recordar los siguientes elementos:
 
 - `gcc`: compilador de C
 - `-Wall`: activa advertencias útiles
@@ -205,12 +165,10 @@ gcc -Wall -std=c11 -o example001 example001.c
 - `-o example001`: nombre del ejecutable de salida
 - `example001.c`: archivo fuente
 
-## Ejecución del programa
-
-Una vez compilado:
+Una vez compilado el programa se puede ejecutar con:
 
 ```bash
-./example001
+> ./example001
 ```
 
 Salida esperada:
@@ -219,14 +177,15 @@ Salida esperada:
 Hello, World!
 ```
 
-## Extensión del programa: tipos de datos y `sizeof`
+### 4. Extensión del programa: tipos de datos y `sizeof`
 
 Crea un archivo llamado `example002.c` con el siguiente contenido:
 
 ```c
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     int a = 10;
     float b = 3.14f;
     double c = 2.71828;
@@ -251,23 +210,24 @@ int main(void) {
 Compilar nuevamente:
 
 ```bash
-gcc -Wall -std=c11 -o example002 example002.c
+> gcc -Wall -std=c11 -o example002 example002.c
 ```
 
 Ejecutar:
 
 ```bash
-./example002
+> ./example002
 ```
 
-## Extensión adicional: operaciones básicas
+### 5. Adicional: Operaciones básicas
 
-Ahora implementa un archivo `example003.c` con el siguiente contenido:
+Ahora implemente un archivo `example003.c` con el siguiente contenido:
 
 ```c
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     int x = 10;
     int y = 3;
 
@@ -297,6 +257,6 @@ int main(void) {
 Compilar y ejecutar:
 
 ```bash
-gcc -Wall -std=c11 -o example003 example003.c
-./example003
+> gcc -Wall -std=c11 -o example003 example003.c
+> ./example003
 ```
